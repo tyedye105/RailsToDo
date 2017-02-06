@@ -6,6 +6,7 @@ class TasksController < ApplicationController
   def create
     @list = List.find(params[:list_id])
     @task = @list.tasks.new(task_params)
+    @task.done = false
     if @task.save
       redirect_to list_path(@task.list)
     else
@@ -36,6 +37,6 @@ end
 
 private
   def task_params
-    params.require(:task).permit(:description)
+    params.require(:task).permit(:description, :done)
   end
 end
